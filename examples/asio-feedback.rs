@@ -41,7 +41,10 @@ fn main() -> anyhow::Result<()> {
         .next()
         .unwrap()
         .with_max_sample_rate();
-    assert_eq!(supported_config.sample_format(), cpal::SampleFormat::I32);
+    assert_eq!(
+        supported_config.sample_format().to_string(),
+        std::any::type_name::<SampleFormat>()
+    );
 
     // We'll try and use the same configuration between streams to keep it simple.
     let config_default: cpal::StreamConfig = asio_device.default_input_config()?.into();
